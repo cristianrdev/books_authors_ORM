@@ -1,0 +1,114 @@
+from books_authors_app.models import *
+
+Consulta: crea 5 libros con los siguientes nombres: C Sharp, Java, Python, PHP, Ruby
+
+
+book_csharp = Book.objects.create(title = "C Sharp", description = "C Sharp programming book")
+book_java = Book.objects.create(title = "Java", description = "a Java fundamentals book")
+book_python = Book.objects.create(title = "Python", description = "a Python handbook")
+book_php = Book.objects.create(title = "PHP", description = "PHP basis programming manual")
+book_ruby = Book.objects.create(title = "Ruby", description = "Ruby for advanced programmers")
+
+author_janea = Author.objects.create(first_name = "Jane", last_name = "Austen")
+author_emilyd = Author.objects.create(first_name = "Emily", last_name = "Dickinson")
+author_fyodord = Author.objects.create(first_name = "Fyodor", last_name = "Dostoevksy")
+author_williams = Author.objects.create(first_name = "William", last_name = "Shakespeare")
+author_laut = Author.objects.create(first_name = "Lau", last_name = "Tzu")
+
+Consulta: cambie el nombre del libro de C Sharp a C #
+
+book_to_update = Book.objects.get(id=1)
+book_to_update.title = "C #"
+book_to_update.save()
+
+Consulta: cambie el nombre del cuarto autor a Bill
+author_to_update = Author.objects.get(id=4)
+author_to_update.first_name = "Bill"
+author_to_update.save()
+
+Consulta: Asigna el primer autor a los primeros 2 libros.
+this_author = Author.objects.get(id=1)
+
+this_book1 = Book.objects.get(id=1)
+this_book2 = Book.objects.get(id=2)
+
+this_author.books.add(this_book1)
+this_author.books.add(this_book2)
+
+Consulta: Asigne el segundo autor a los primeros 3 libros.
+this_author2 = Author.objects.get(id=2)
+
+this_book1 = Book.objects.get(id=1)
+this_book2 = Book.objects.get(id=2)
+this_book3 = Book.objects.get(id=3)
+
+this_author2.books.add(this_book1)
+this_author2.books.add(this_book2)
+this_author2.books.add(this_book3)
+
+Consulta: Asigna el tercer autor a los primeros 4 libros.
+this_author3 = Author.objects.get(id=3)
+
+this_book1 = Book.objects.get(id=1)
+this_book2 = Book.objects.get(id=2)
+this_book3 = Book.objects.get(id=3)
+this_book4 = Book.objects.get(id=4)
+
+this_author3.books.add(this_book1)
+this_author3.books.add(this_book2)
+this_author3.books.add(this_book3)
+this_author3.books.add(this_book4)
+
+Consulta: Asigne el cuarto autor a los primeros 5 libros (o en otras palabras, todos los libros)
+this_author4 = Author.objects.get(id=4)
+
+this_book1 = Book.objects.get(id=1)
+this_book2 = Book.objects.get(id=2)
+this_book3 = Book.objects.get(id=3)
+this_book4 = Book.objects.get(id=4)
+this_book5 = Book.objects.get(id=5)
+
+this_author4.books.add(this_book1)
+this_author4.books.add(this_book2)
+this_author4.books.add(this_book3)
+this_author4.books.add(this_book4)
+this_author4.books.add(this_book5)
+
+Consulta: recupera a todos los autores del tercer libro
+tercer_libro = Book.objects.get(id=3)
+tercer_libro.authors.all()
+
+*Imprimir los nombres:
+for b in tercer_libro.authors.all():
+    print(b.first_name)
+
+Consulta: eliminar al primer autor del tercer libro
+author_to_delete = Author.objects.get(id=2)
+author_to_delete.delete()
+
+
+Consulta: Agregue el quinto autor como uno de los autores del segundo libro.
+
+this_author5 = Author.objects.get(id=5)
+
+this_book2 = Book.objects.get(id=2)
+
+this_author5.books.add(this_book2)
+
+
+Consulta: Encuentra todos los libros de los que el tercer autor es parte
+
+tercer_autor = Author.objects.get(id=3)
+tercer_autor.books.all()
+
+*Imprimir los libros:
+for b in tercer_autor.books.all():
+    print(b.title)
+
+Consulta: Encuentra todos los autores que contribuyeron al quinto libro.
+quinto_libro = Book.objects.get(id=5)
+quinto_libro.authors.all()
+
+*Imprimir los autores del quinto libro
+for a in quinto_libro.authors.all():
+    print(a.first_name)
